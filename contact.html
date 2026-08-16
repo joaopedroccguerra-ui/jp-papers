@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggest a change | JP Papers</title>
+<meta name="description" content="Tell JP Papers what would make your IGCSE prep easier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">JP<span>.</span>Papers</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="resources.html">Resources</a>
+      <a href="updates.html">Updates</a>
+      <a href="contact.html" aria-current="page">Suggest a change</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section" style="border-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Suggest a change</p>
+        <h2>Tell us what's missing</h2>
+        <p class="lead">A subject with no papers, a broken download, a topic that needs notes — send it here.</p>
+      </div>
+
+      <form class="form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="row">
+          <label>
+            <span class="field-label">First name</span>
+            <input type="text" name="first-name" required>
+          </label>
+          <label>
+            <span class="field-label">Last name</span>
+            <input type="text" name="last-name" required>
+          </label>
+        </div>
+
+        <label>
+          <span class="field-label">Email address</span>
+          <input type="email" name="email" required>
+        </label>
+
+        <label>
+          <span class="field-label">Topic</span>
+          <select name="topic">
+            <option>Request a paper</option>
+            <option>Request revision notes</option>
+            <option>Report a broken file</option>
+            <option>Something else</option>
+          </select>
+        </label>
+
+        <label>
+          <span class="field-label">Message</span>
+          <textarea name="message" required></textarea>
+        </label>
+
+        <div class="actions" style="margin-top:0">
+          <button class="btn" type="submit">Send message</button>
+        </div>
+
+        <p class="note">
+          The form needs a free Formspree account to work. Sign up, create a form,
+          then replace YOUR_FORM_ID in contact.html with the ID they give you.
+          Until then the button will not send anything.
+        </p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span>&copy; <span id="year">2026</span> JP Papers. All rights reserved.</span>
+    <span>Built for the May/June 2027 session</span>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

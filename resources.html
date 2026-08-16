@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resources | JP Papers</title>
+<meta name="description" content="Practice papers, PSA practice and revision notes by subject.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">JP<span>.</span>Papers</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="resources.html" aria-current="page">Resources</a>
+      <a href="updates.html">Updates</a>
+      <a href="contact.html">Suggest a change</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section" style="border-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">File library</p>
+        <h2>Pick a subject</h2>
+        <p class="lead">Search by subject, by test type (PSA, cycle test, EoY) or by term.</p>
+      </div>
+
+      <div class="toolbar">
+        <input class="search" id="search" type="search" placeholder="Search: physics, PSA, term 2..." aria-label="Search resources">
+        <button class="chip" data-group="all" aria-pressed="true">All</button>
+        <button class="chip" data-group="sciences" aria-pressed="false">Sciences</button>
+        <button class="chip" data-group="maths" aria-pressed="false">Maths &amp; computing</button>
+        <button class="chip" data-group="humanities" aria-pressed="false">Humanities</button>
+        <button class="chip" data-group="languages" aria-pressed="false">Languages</button>
+      </div>
+
+      <div class="grid" id="subject-grid"></div>
+
+      <p class="note" style="margin-top:2rem">
+        Every test links to its document in Google Drive. To add a new one, copy the
+        document link, swap the final <code>/edit</code> for <code>/preview</code>,
+        and add a line to <code>assets/data.js</code>.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span>&copy; <span id="year">2026</span> JP Papers. All rights reserved.</span>
+    <span>Built for the May/June 2027 session</span>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
