@@ -156,6 +156,11 @@ const SUBJECTS = [
 /* Atualizações (o "blog") — a mais recente em primeiro */
 const UPDATES = [
   {
+    date: "2026-08-21",
+    title: "Nineteen mock papers are live",
+    body: "Full IGCSE mock papers for the 2027 session — Biology, Chemistry, Physics, Maths, English Language, English Literature, Geography and Computer Science. Each one has a timer and a sealed mark scheme. See the Mock papers page."
+  },
+  {
     date: "2026-08-15",
     title: "Every test is now on the site",
     body: "All 43 revision documents from Grade 9 are linked here, sorted by subject and term. Nothing has to be hunted for in Drive any more."
