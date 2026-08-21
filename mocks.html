@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mock papers | JP Papers</title>
+<meta name="description" content="Full IGCSE mock papers for the 2027 session, with a timer and a sealed mark scheme.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+/* ---- Barra do exame (só aparece dentro de um paper) ---- */
+.exam-bar{position:sticky;top:62px;z-index:40;background:var(--blue);color:#fff;
+  display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;
+  padding:.6rem clamp(1rem,4vw,2rem);font-family:var(--mono);font-size:.72rem;
+  letter-spacing:.08em;text-transform:uppercase}
+.exam-bar .spacer{flex:1}
+#clock{font-size:1.15rem;font-weight:500;letter-spacing:.04em;font-variant-numeric:tabular-nums;color:var(--turq);text-transform:none}
+#clock.over{color:#FFB067}
+.exam-bar button{font:inherit;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:.4rem .8rem;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45);
+  border-radius:var(--radius);cursor:pointer}
+.exam-bar button:hover{background:rgba(255,255,255,.14)}
+
+/* ---- Folha do paper ---- */
+.paper-sheet{background:var(--sheet);border:1px solid var(--rule);border-radius:var(--radius);
+  box-shadow:12px 12px 0 -4px rgba(11,42,91,.10);padding:clamp(1.4rem,5vw,3rem) clamp(1.2rem,6vw,3.4rem);
+  margin:1.6rem 0;position:relative}
+.paper-sheet::before{content:"";position:absolute;inset-block:0;left:clamp(.7rem,3vw,1.6rem);
+  width:1px;background:rgba(242,105,13,.55)}
+.paper-sheet h1{font-size:clamp(1.6rem,4vw,2.2rem);margin:0 0 .6rem}
+.paper-sheet h2{font-size:clamp(1.2rem,3vw,1.5rem);margin:2rem 0 .6rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule)}
+.paper-sheet h3{font-size:1.05rem;margin:1.5rem 0 .5rem}
+.paper-sheet table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+.paper-sheet th,.paper-sheet td{border:1px solid var(--rule);padding:.45rem .6rem;text-align:left}
+.paper-sheet th{background:#F4F7FC}
+.paper-sheet code{font-family:var(--mono);font-size:.88em;background:#F4F7FC;padding:.1em .35em;border-radius:3px}
+.paper-sheet pre{background:#F4F7FC;border:1px solid var(--rule);border-radius:var(--radius);
+  padding:.9rem 1rem;overflow-x:auto}
+.paper-sheet pre code{background:none;padding:0}
+.paper-sheet blockquote{margin:1rem 0;padding-left:1rem;border-left:3px solid var(--turq);color:var(--ink-soft)}
+.paper-sheet hr{border:0;border-top:1px dashed var(--rule);margin:2rem 0}
+.paper-sheet ol,.paper-sheet ul{padding-left:1.3rem}
+.paper-sheet li{margin-bottom:.4rem}
+
+/* ---- Selo do mark scheme ---- */
+.seal{border:1.5px dashed var(--orange);border-radius:var(--radius);text-align:center;
+  padding:2rem 1.4rem;margin:2rem 0}
+.seal p{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin:0 0 1rem}
+.seal small{display:block;margin-top:.9rem;font-size:.82rem;color:var(--ink-soft)}
+
+/* ---- Lista ---- */
+.paper-row{display:flex;align-items:baseline;gap:.5rem 1rem;flex-wrap:wrap;
+  padding:.95rem 0;border-bottom:1px solid var(--rule);text-decoration:none;cursor:pointer;
+  background:none;border-left:0;border-right:0;border-top:0;width:100%;text-align:left;font:inherit;color:inherit}
+.paper-row:hover .p-title{text-decoration:underline}
+.p-code{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:#C24E00;min-width:4.2rem}
+.p-title{font-weight:600}
+.p-stats{margin-left:auto;font-family:var(--mono);font-size:.74rem;color:var(--ink-soft)}
+.group-head{font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--blue);margin:2.2rem 0 .3rem}
+.guide-card{display:block;background:var(--sheet);border:1px solid var(--rule);border-left:4px solid var(--turq);
+  border-radius:var(--radius);padding:1.2rem 1.4rem;text-decoration:none;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit}
+.guide-card:hover{border-color:var(--blue);border-left-color:var(--turq)}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">JP<span>.</span>Papers</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="resources.html">Resources</a>
+      <a href="mocks.html" aria-current="page">Mock papers</a>
+      <a href="updates.html">Updates</a>
+      <a href="contact.html">Suggest a change</a>
+    </nav>
+  </div>
+</header>
+
+<div class="exam-bar" id="exam-bar" hidden>
+  <span id="exam-label">—</span>
+  <span class="spacer"></span>
+  <span id="clock">—</span>
+  <button id="start">Start</button>
+  <button id="reset">Reset</button>
+</div>
+
+<main id="main">
+
+  <!-- LISTA -->
+  <section class="section" id="view-list" style="border-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Mock papers &middot; 2027 session</p>
+        <h2>Sit a full paper</h2>
+        <p class="lead">Nineteen complete mock papers with mark schemes. Each one runs on a timer,
+          and the mark scheme stays sealed until you finish.</p>
+      </div>
+      <div class="toolbar" id="filters"></div>
+      <div id="list"></div>
+    </div>
+  </section>
+
+  <!-- PAPER -->
+  <section class="section" id="view-paper" hidden style="border-top:0">
+    <div class="wrap">
+      <div class="actions" style="margin:0 0 .5rem">
+        <button class="btn btn-ghost" id="back">&larr; All mock papers</button>
+      </div>
+      <div id="paper-body"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span>&copy; <span id="year">2026</span> JP Papers. All rights reserved.</span>
+    <span>Built for the May/June 2027 session</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="mocks-data.js"></script>
+<script>
+const listView = document.getElementById("view-list");
+const paperView = document.getElementById("view-paper");
+const bar = document.getElementById("exam-bar");
+const clock = document.getElementById("clock");
+let entry = null, remaining = 0, ticker = null, active = "All";
+
+/* ---------- Lista ---------- */
+function buildFilters(){
+  const box = document.getElementById("filters");
+  const subjects = ["All", ...new Set(MOCK_MANIFEST.papers.map(p => p.subject))];
+  box.innerHTML = "";
+  subjects.forEach(s => {
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.textContent = s;
+    b.setAttribute("aria-pressed", String(s === active));
+    b.onclick = () => {
+      active = s;
+      [...box.children].forEach(c => c.setAttribute("aria-pressed", String(c.textContent === s)));
+      renderList();
+    };
+    box.appendChild(b);
+  });
+}
+
+function renderList(){
+  const shown = MOCK_MANIFEST.papers.filter(p => active === "All" || p.subject === active);
+  const mount = document.getElementById("list");
+  let html = "";
+
+  if (active === "All"){
+    const g = MOCK_MANIFEST.guides[0];
+    html += `<h3 class="group-head">Start here</h3>
+      <button class="guide-card" data-guide="${g.id}">
+        <span class="card-code">REFERENCE</span>
+        <h3 style="margin:.3rem 0 0">${g.title}</h3>
+      </button>`;
+  }
+
+  let current = "";
+  shown.forEach(p => {
+    const group = `${p.board} &middot; ${p.subject} ${p.code}`;
+    if (group !== current){ html += `<h3 class="group-head">${group}</h3>`; current = group; }
+    html += `<button class="paper-row" data-id="${p.id}">
+      <span class="p-code">${p.code}</span>
+      <span class="p-title">${p.paper}</span>
+      <span class="p-stats">${p.marks} marks &middot; ${p.minutes} min</span>
+    </button>`;
+  });
+
+  mount.innerHTML = html;
+  mount.querySelectorAll("[data-id]").forEach(el =>
+    el.onclick = () => location.hash = "paper/" + el.dataset.id);
+  mount.querySelectorAll("[data-guide]").forEach(el =>
+    el.onclick = () => location.hash = "guide/" + el.dataset.guide);
+}
+
+/* ---------- Leitor ---------- */
+function md(path){
+  const raw = MOCK_DOCS[path];
+  return raw ? marked.parse(raw) : "<p>Document missing.</p>";
+}
+
+function showGuide(id){
+  const g = MOCK_MANIFEST.guides.find(x => x.id === id);
+  if (!g) return showList();
+  stopTimer();
+  bar.hidden = true;
+  entry = null;
+  document.title = g.title + " | JP Papers";
+  document.getElementById("paper-body").innerHTML = `<div class="paper-sheet">${md(g.file)}</div>`;
+  listView.hidden = true; paperView.hidden = false;
+  window.scrollTo(0,0);
+}
+
+function showPaper(id){
+  const p = MOCK_MANIFEST.papers.find(x => x.id === id);
+  if (!p) return showList();
+  entry = p;
+  stopTimer();
+  remaining = p.minutes * 60;
+  paint();
+  bar.hidden = false;
+  document.getElementById("exam-label").textContent = `${p.code} ${p.paper}`;
+  document.title = `${p.code} ${p.paper} | JP Papers`;
+
+  document.getElementById("paper-body").innerHTML =
+    `<div class="paper-sheet">${md(p.questions)}</div>
+     <div class="seal" id="seal">
+       <p>Mark scheme sealed</p>
+       <button class="btn" id="reveal">Break the seal</button>
+       <small>${p.marks} marks &middot; ${p.minutes} minutes. Finish the paper before you open this.</small>
+     </div>`;
+
+  document.getElementById("reveal").onclick = () => {
+    if (!confirm("Open the mark scheme? Marking before you have finished costs you the practice.")) return;
+    document.getElementById("seal").outerHTML = `<div class="paper-sheet">${md(entry.markscheme)}</div>`;
+  };
+
+  listView.hidden = true; paperView.hidden = false;
+  window.scrollTo(0,0);
+}
+
+function showList(){
+  stopTimer();
+  bar.hidden = true;
+  entry = null;
+  document.title = "Mock papers | JP Papers";
+  paperView.hidden = true; listView.hidden = false;
+  window.scrollTo(0,0);
+}
+
+/* ---------- Cronómetro ---------- */
+function paint(){
+  const over = remaining < 0, t = Math.abs(remaining);
+  const h = Math.floor(t/3600), m = Math.floor(t%3600/60), s = t%60;
+  clock.textContent = (over ? "+" : "") +
+    (h ? h + ":" + String(m).padStart(2,"0") : m) + ":" + String(s).padStart(2,"0");
+  clock.classList.toggle("over", over);
+}
+function stopTimer(){
+  clearInterval(ticker); ticker = null;
+  document.getElementById("start").textContent = "Start";
+}
+document.getElementById("start").onclick = (e) => {
+  if (!entry) return;
+  if (ticker){ stopTimer(); e.target.textContent = "Resume"; return; }
+  ticker = setInterval(() => { remaining--; paint(); }, 1000);
+  e.target.textContent = "Pause";
+};
+document.getElementById("reset").onclick = () => {
+  if (!entry) return;
+  stopTimer();
+  remaining = entry.minutes * 60;
+  paint();
+};
+document.getElementById("back").onclick = () => { location.hash = ""; };
+
+/* ---------- Router ---------- */
+function route(){
+  const h = location.hash.replace(/^#/, "");
+  if (h.startsWith("paper/")) showPaper(h.slice(6));
+  else if (h.startsWith("guide/")) showGuide(h.slice(6));
+  else showList();
+}
+window.addEventListener("hashchange", route);
+
+document.getElementById("year").textContent = new Date().getFullYear();
+buildFilters();
+renderList();
+route();
+</script>
+</body>
+</html>
