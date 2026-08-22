@@ -18,19 +18,21 @@ Sem servidor, sem build, sem dependências — funciona tal e qual no GitHub Pag
 
 ## Publicar no GitHub Pages
 
-1. Em github.com clica em **New repository**. Nome: `jp-papers`. Visibilidade: **Public**
-   (o Pages só é gratuito em repositórios públicos). Não adiciones README.
+1. Em github.com clica em **New repository**. O nome tem de ser exatamente
+   `jppapers.github.io` — é assim que o Pages sabe que é o site do utilizador
+   e o serve na raiz do domínio. Visibilidade: **Public** (o Pages só é
+   gratuito em repositórios públicos). Não adiciones README.
 2. No repositório vazio, clica em **uploading an existing file** e arrasta **o conteúdo**
    desta pasta (o `index.html` tem de ficar na raiz do repositório, não dentro de outra pasta).
 3. **Commit changes**.
 4. Vai a **Settings → Pages**. Em *Source* escolhe **Deploy from a branch**,
    branch `main`, pasta `/ (root)`. Guarda.
 5. Espera 1–2 minutos. O site fica em:
-   `https://<o-teu-utilizador>.github.io/jp-papers/`
+   `https://jppapers.github.io/`
 
 ### Domínio próprio (opcional)
 Settings → Pages → Custom domain. Depois cria um registo CNAME no teu fornecedor
-de domínio a apontar para `<o-teu-utilizador>.github.io`.
+de domínio a apontar para `jppapers.github.io`.
 
 ## Adicionar um teste
 
