@@ -10,6 +10,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Public+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
+/* ---- Barra do exame (só aparece dentro de um paper) ---- */
+.exam-bar{position:sticky;top:62px;z-index:40;background:var(--blue);color:#fff;
+  display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;
+  padding:.6rem clamp(1rem,4vw,2rem);font-family:var(--mono);font-size:.72rem;
+  letter-spacing:.08em;text-transform:uppercase}
+.exam-bar .spacer{flex:1}
+#clock{font-size:1.15rem;font-weight:500;letter-spacing:.04em;font-variant-numeric:tabular-nums;color:var(--turq);text-transform:none}
+#clock.over{color:#FFB067}
+.exam-bar button{font:inherit;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:.4rem .8rem;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45);
+  border-radius:var(--radius);cursor:pointer}
+.exam-bar button:hover{background:rgba(255,255,255,.14)}
+
 /* ---- Folha do paper ---- */
 .paper-sheet{background:var(--sheet);border:1px solid var(--rule);border-radius:var(--radius);
   box-shadow:12px 12px 0 -4px rgba(11,42,91,.10);padding:clamp(1.4rem,5vw,3rem) clamp(1.2rem,6vw,3.4rem);
@@ -71,6 +84,14 @@
 
 
 
+<div class="exam-bar" id="exam-bar" hidden>
+  <span id="exam-label">—</span>
+  <span class="spacer"></span>
+  <span id="clock">—</span>
+  <button id="start">Start</button>
+  <button id="reset">Reset</button>
+</div>
+
 <main id="main">
 
   <!-- LISTA -->
@@ -79,8 +100,8 @@
       <div class="section-head">
         <p class="eyebrow">Mock papers &middot; 2027 session</p>
         <h2>Sit a full paper</h2>
-        <p class="lead">Nineteen complete mock papers with mark schemes. Sit one under your own
-          conditions — the mark scheme stays sealed until you finish.</p>
+        <p class="lead">Nineteen complete mock papers with mark schemes. Each one runs on a timer,
+          and the mark scheme stays sealed until you finish.</p>
       </div>
       <div class="toolbar" id="filters"></div>
       <div id="list"></div>
@@ -111,7 +132,9 @@
 <script>
 const listView = document.getElementById("view-list");
 const paperView = document.getElementById("view-paper");
-let entry = null, active = "All";
+const bar = document.getElementById("exam-bar");
+const clock = document.getElementById("clock");
+let entry = null, remaining = 0, ticker = null, active = "All";
 
 /* ---------- Lista ---------- */
 function buildFilters(){
@@ -173,6 +196,8 @@ function md(path){
 function showGuide(id){
   const g = MOCK_MANIFEST.guides.find(x => x.id === id);
   if (!g) return showList();
+  stopTimer();
+  bar.hidden = true;
   entry = null;
   document.title = g.title + " | JP Papers";
   document.getElementById("paper-body").innerHTML = `<div class="paper-sheet">${md(g.file)}</div>`;
@@ -184,6 +209,11 @@ function showPaper(id){
   const p = MOCK_MANIFEST.papers.find(x => x.id === id);
   if (!p) return showList();
   entry = p;
+  stopTimer();
+  remaining = p.minutes * 60;
+  paint();
+  bar.hidden = false;
+  document.getElementById("exam-label").textContent = `${p.code} ${p.paper}`;
   document.title = `${p.code} ${p.paper} | JP Papers`;
 
   document.getElementById("paper-body").innerHTML =
@@ -204,12 +234,38 @@ function showPaper(id){
 }
 
 function showList(){
+  stopTimer();
+  bar.hidden = true;
   entry = null;
   document.title = "Mock papers | JP Papers";
   paperView.hidden = true; listView.hidden = false;
   window.scrollTo(0,0);
 }
 
+/* ---------- Cronómetro ---------- */
+function paint(){
+  const over = remaining < 0, t = Math.abs(remaining);
+  const h = Math.floor(t/3600), m = Math.floor(t%3600/60), sec = t%60;
+  clock.textContent = (over ? "+" : "") +
+    (h ? h + ":" + String(m).padStart(2,"0") : m) + ":" + String(sec).padStart(2,"0");
+  clock.classList.toggle("over", over);
+}
+function stopTimer(){
+  clearInterval(ticker); ticker = null;
+  document.getElementById("start").textContent = "Start";
+}
+document.getElementById("start").onclick = (e) => {
+  if (!entry) return;
+  if (ticker){ stopTimer(); e.target.textContent = "Resume"; return; }
+  ticker = setInterval(() => { remaining--; paint(); }, 1000);
+  e.target.textContent = "Pause";
+};
+document.getElementById("reset").onclick = () => {
+  if (!entry) return;
+  stopTimer();
+  remaining = entry.minutes * 60;
+  paint();
+};
 document.getElementById("back").onclick = () => { location.hash = ""; };
 
 /* ---------- Router ---------- */
