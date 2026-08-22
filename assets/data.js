@@ -6,6 +6,8 @@
    por /preview, e acrescenta uma linha na disciplina certa.
    ========================================================= */
 
+/* Início da época de exames (contador da página inicial) */
+const EXAM_DATE = "2027-05-01T09:00:00";
 
 /* Grupos usados nos filtros */
 const GROUPS = {
@@ -156,7 +158,7 @@ const UPDATES = [
   {
     date: "2026-08-21",
     title: "Nineteen mock papers are live",
-    body: "Full IGCSE mock papers for the 2027 session — Biology, Chemistry, Physics, Maths, English Language, English Literature, Geography and Computer Science. Each one comes with a sealed mark scheme. See the Mock papers page."
+    body: "Full IGCSE mock papers for the 2027 session — Biology, Chemistry, Physics, Maths, English Language, English Literature, Geography and Computer Science. Each one has a timer and a sealed mark scheme. See the Mock papers page."
   },
   {
     date: "2026-08-15",
