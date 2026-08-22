@@ -6,8 +6,6 @@
    por /preview, e acrescenta uma linha na disciplina certa.
    ========================================================= */
 
-/* Início da época de exames (contador da página inicial) */
-const EXAM_DATE = "2027-05-01T09:00:00";
 
 /* Grupos usados nos filtros */
 const GROUPS = {
