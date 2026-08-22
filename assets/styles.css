@@ -94,7 +94,7 @@ p { margin: 0 0 1rem; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--topbar-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--rule);
 }
@@ -144,7 +144,7 @@ p { margin: 0 0 1rem; }
   background: var(--sheet);
   border: 1px solid var(--rule);
   border-radius: var(--radius);
-  box-shadow: 0 1px 0 var(--rule), 12px 12px 0 -4px rgba(11, 42, 91, 0.10);
+  box-shadow: 0 1px 0 var(--rule), 12px 12px 0 -4px var(--shadow);
   position: relative;
   overflow: hidden;
 }
@@ -297,7 +297,7 @@ p { margin: 0 0 1rem; }
 .card:hover {
   transform: translateY(-3px);
   border-color: var(--ink);
-  box-shadow: 0 10px 0 -4px rgba(11, 42, 91, 0.14);
+  box-shadow: 0 10px 0 -4px var(--shadow-strong);
 }
 
 .card-code {
@@ -454,44 +454,147 @@ textarea { min-height: 140px; resize: vertical; }
 }
 .papers + .term-head { margin-top: 2.6rem; }
 
-
 /* =========================================================
-   Paleta: fundo branco, secções a azul-escuro,
-   texto preto, destaques turquesa e laranja
+   Paleta — tokens semânticos
+   Claro: fundo branco, secções a azul-escuro, texto preto,
+          destaques turquesa e laranja.
+   Escuro: as mesmas peças, invertidas (ver bloco no fim).
    ========================================================= */
 :root {
-  --blue: #0B2A5B;    /* azul-escuro das secções e títulos */
-  --turq: #0FB5C4;    /* turquesa */
-  --orange: #F2690D;  /* laranja */
+  --blue:   #0B2A5B;   /* azul-escuro das secções e títulos */
+  --turq:   #0FB5C4;   /* turquesa */
+  --orange: #F2690D;   /* laranja */
+
+  /* superfícies e chrome */
+  --topbar-bg:     rgba(255, 255, 255, 0.9);
+  --shadow:        rgba(11, 42, 91, 0.10);
+  --shadow-strong: rgba(11, 42, 91, 0.14);
+  --rule-strong:   rgba(11, 42, 91, 0.28);
+  --code-bg:       #F4F7FC;
+  --margin-line:   rgba(242, 105, 13, 0.55);
+
+  /* títulos e elementos "sólidos" (botões, chips, barra do exame) */
+  --heading:   var(--blue);
+  --solid-bg:  var(--blue);
+  --solid-ink: #FFFFFF;
+
+  /* laranja escurecido para texto pequeno, para se ler bem no branco */
+  --accent-text: #C24E00;
 }
 
-h1, h2, h3 { color: var(--blue); }
-.eyebrow, .term-head, .sheet-head { color: var(--blue); }
+h1, h2, h3 { color: var(--heading); }
+.eyebrow, .term-head, .sheet-head { color: var(--heading); }
 
-.brand { color: var(--blue); }
+.brand { color: var(--heading); }
 .brand span { color: var(--orange); }
 .nav a:hover, .nav a[aria-current="page"],
 .nav button:hover, .nav button[aria-current="page"] { border-bottom-color: var(--orange); }
 
-.section { border-top: 1px solid rgba(11, 42, 91, 0.28); }
+.section { border-top: 1px solid var(--rule-strong); }
 
-.btn { background: var(--blue); border-color: var(--blue); color: #fff; }
+.btn { background: var(--solid-bg); border-color: var(--solid-bg); color: var(--solid-ink); }
 .btn:hover { box-shadow: 4px 4px 0 var(--turq); }
-.btn-ghost { background: transparent; color: var(--blue); }
+.btn-ghost { background: transparent; color: var(--heading); }
 .btn-ghost:hover { box-shadow: 4px 4px 0 var(--orange); }
 
-.chip[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
+.chip[aria-pressed="true"] { background: var(--solid-bg); border-color: var(--solid-bg); color: var(--solid-ink); }
 
-.card:hover { border-color: var(--blue); }
-.card-code { color: var(--orange); }
+.card:hover { border-color: var(--heading); }
+.card-code { color: var(--accent-text); }
 
-.sheet::before { background: rgba(242, 105, 13, 0.55); }
+.sheet::before { background: var(--margin-line); }
 
 .update { border-left-color: var(--turq); }
 .note { border-left-color: var(--turq); }
-.papers .dl { color: var(--orange); }
+.papers .dl { color: var(--accent-text); }
 
 :focus-visible { outline-color: var(--turq); }
 
-/* laranja mais escuro quando é texto pequeno, para se ler bem no branco */
-.card-code, .papers .dl { color: #C24E00; }
+
+/* =========================================================
+   Botão de modo escuro (na barra de navegação)
+   ========================================================= */
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin-left: 0.2rem;
+  flex: none;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--heading);
+  cursor: pointer;
+  transition: color 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+}
+.theme-toggle:hover { color: var(--orange); border-color: var(--orange); }
+.theme-toggle svg { width: 17px; height: 17px; display: block; }
+
+/* mostra o ícone do modo para onde se vai, não o do modo atual */
+.theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+
+/* =========================================================
+   MODO ESCURO
+   Só troca tokens — nenhuma regra de layout muda.
+   ========================================================= */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ink:      #E7EDF7;
+  --ink-soft: #9AA8BE;
+  --paper:    #0D1320;
+  --sheet:    #141C2B;
+  --rule:     #2A3549;
+
+  /* o marcador fica translúcido para o texto claro continuar legível */
+  --marker:   rgba(15, 181, 196, 0.34);
+  --marker-2: rgba(242, 105, 13, 0.32);
+  --pen:      #FF8A3D;
+
+  --turq:   #35D3E0;
+  --orange: #FF8A3D;
+
+  --topbar-bg:     rgba(13, 19, 32, 0.88);
+  --shadow:        rgba(0, 0, 0, 0.5);
+  --shadow-strong: rgba(0, 0, 0, 0.55);
+  --rule-strong:   rgba(157, 192, 242, 0.22);
+  --code-bg:       #1B2434;
+  --margin-line:   rgba(255, 138, 61, 0.5);
+
+  --heading:   #9DC0F2;   /* azul claro: os títulos continuam azuis */
+  --solid-bg:  #24406F;   /* azul médio, ainda aguenta texto branco */
+  --solid-ink: #FFFFFF;
+
+  --accent-text: #FF9A57;
+}
+
+/* o marcador translúcido cobre a palavra toda, não só a base */
+:root[data-theme="dark"] .mark {
+  background-image: linear-gradient(var(--marker), var(--marker));
+  border-radius: 2px;
+}
+:root[data-theme="dark"] .mark-pink {
+  background-image: linear-gradient(var(--marker-2), var(--marker-2));
+}
+
+/* no escuro a borda preta do botão fantasma seria branca e gritante */
+:root[data-theme="dark"] .btn-ghost { border-color: var(--rule-strong); }
+:root[data-theme="dark"] .btn-ghost:hover { border-color: var(--orange); }
+
+/* em ecrãs estreitos a navegação já quebra em várias linhas;
+   o botão fica preso ao canto, para não ganhar uma linha só para ele */
+@media (max-width: 720px) {
+  .topbar-inner { position: relative; padding-right: 2.9rem; }
+  .nav { gap: 1.05rem; }
+  .theme-toggle {
+    position: absolute;
+    top: 14px;
+    right: clamp(1rem, 4vw, 2rem);
+    margin: 0;
+  }
+}
